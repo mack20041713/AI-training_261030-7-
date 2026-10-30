@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주식회사 SBK - PCR 진단키트 전문 기업</title>
+    <style>
+        :root {
+            --primary-color: #0d9488;
+            --primary-hover: #0f766e;
+            --bg-warm: #fdfbf7;
+            --card-bg: #ffffff;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-warm);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #ffffff;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+
+        .logo-sub {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            border-left: 2px solid var(--border-color);
+            padding-left: 0.5rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        nav a:hover, nav a.active {
+            background-color: #f0fdf4;
+            color: var(--primary-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .tab-content {
+            display: none;
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        h2.section-title {
+            font-size: 1.75rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #f1f5f9;
+        }
+
+        /* 비디오 섹션 스타일 */
+        .video-hero-card {
+            background: #0f172a;
+            color: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+        }
+
+        .video-wrapper {
+            width: 100%;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        video {
+            width: 100%;
+            max-height: 550px;
+            outline: none;
+        }
+
+        .video-info {
+            padding: 1.5rem 2rem;
+            background: linear-gradient(to right, #0f172a, #1e293b);
+        }
+
+        .video-info h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: #f8fafc;
+        }
+
+        .video-info p {
+            color: #94a3b8;
+            font-size: 0.95rem;
+        }
+
+        /* 링크 / 카드 스타일 */
+        .link-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .link-card {
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+            border-radius: 12px;
+            background-color: #fafafa;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .link-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.05);
+            border-color: var(--primary-color);
+        }
+
+        .btn-link {
+            display: inline-block;
+            padding: 0.6rem 1.2rem;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+
+        /* 다운로드 파일 리스트 */
+        .file-list {
+            list-style: none;
+        }
+
+        .file-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 1.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            margin-bottom: 0.8rem;
+            background: #ffffff;
+        }
+
+        .file-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .btn-download {
+            padding: 0.6rem 1.2rem;
+            background-color: var(--primary-color);
+            color: white !important;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .btn-download:hover {
+            background-color: var(--primary-hover);
+        }
+
+        /* 퀴즈 스타일 */
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .btn-refresh {
+            padding: 0.6rem 1.2rem;
+            background-color: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .quiz-card {
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.2rem;
+            background-color: #ffffff;
+        }
+
+        .quiz-card h4 {
+            font-size: 1.05rem;
+            margin-bottom: 1rem;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .quiz-option {
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .quiz-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 4rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <div class="logo" onclick="showTab('law')">
+                (주)SBK 
+                <span class="logo-sub">PCR 진단키트 홍보 & 품질센터</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a onclick="showTab('law')" id="nav-law" class="active">법령</a></li>
+                    <li><a onclick="showTab('sop')" id="nav-sop">품질 절차서</a></li>
+                    <li><a onclick="showTab('forms')" id="nav-forms">관련양식</a></li>
+                    <li><a onclick="showTab('quiz')" id="nav-quiz">Quiz</a></li>
+                    <li><a onclick="showTab('overview')" id="nav-overview">비디오 오버뷰</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <!-- 1. 법령 -->
+        <section id="tab-law" class="tab-content active">
+            <h2 class="section-title">관련 법령 및 규격 사이트</h2>
+            <div class="link-grid">
+                <div class="link-card">
+                    <h3>ISO 13485 / ISO 14971</h3>
+                    <p>의료기기 품질경영시스템 및 위험관리 국제 표준을 확인할 수 있는 사이트입니다.</p>
+                    <a href="https://www.standard.go.kr" target="_blank" class="btn-link">e나라표준인증 바로가기 ↗</a>
+                </div>
+                <div class="link-card">
+                    <h3>체외진단의료기기법 / 의료기기법</h3>
+                    <p>최신 법령 정보를 실시간으로 조회하고 확인할 수 있는 사이트입니다.</p>
+                    <a href="https://www.law.go.kr" target="_blank" class="btn-link">국가법령정보센터 바로가기 ↗</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. 품질 절차서 -->
+        <section id="tab-sop" class="tab-content">
+            <h2 class="section-title">품질 절차서 (SOP)</h2>
+            <ul class="file-list">
+                <li class="file-item">
+                    <div class="file-info">📄 <strong>PCR 진단키트 문서관리 절차서</strong></div>
+                </li>
+                <li class="file-item">
+                    <div class="file-info">📄 <strong>PCR 진단키트 위험관리 절차서 (SOP-RA-701)</strong></div>
+                </li>
+                <li class="file-item">
+                    <div class="file-info">📄 <strong>PCR 진단키트 시험 및 검사 절차서</strong></div>
+                </li>
+                <li class="file-item">
+                    <div class="file-info">📄 <strong>PCR 진단키트 식별 및 추적관리 절차서</strong></div>
+                </li>
+                <li class="file-item">
+                    <div class="file-info">📄 <strong>PCR 진단키트 CAPA 절차서</strong></div>
+                </li>
+            </ul>
+        </section>
+
+        <!-- 3. 관련양식 (다운로드 가능하도록 href 연결) -->
+        <section id="tab-forms" class="tab-content">
+            <h2 class="section-title">관련 양식 다운로드</h2>
+            <ul class="file-list">
+                <li class="file-item">
+                    <div class="file-info">📋 <strong>PCR 진단키트 문서관리 양식</strong></div>
+                    <!-- 실제 파일 경로로 연결 -->
+                    <a class="btn-download" href="doc-form.pdf" download>다운로드 ⤓</a>
+                </li>
+                <li class="file-item">
+                    <div class="file-info">📋 <strong>PCR 진단키트 위험관리 양식</strong></div>
+                    <a class="btn-download" href="risk-form.pdf" download>다운로드 ⤓</a>
+                </li>
+                <li class="file-item">
+                    <div class="file-info">📋 <strong>PCR 진단키트 시험 및 검사 양식</strong></div>
+                    <a class="btn-download" href="test-form.pdf" download>다운로드 ⤓</a>
+                </li>
+                <li class="file-item">
+                    <div class="file-info">📋 <strong>PCR 진단키트 식별 및 추적관리 양식</strong></div>
+                    <a class="btn-download" href="trace-form.pdf" download>다운로드 ⤓</a>
+                </li>
+                <li class="file-item">
+                    <div class="file-info">📋 <strong>PCR 진단키트 CAPA 양식</strong></div>
+                    <a class="btn-download" href="capa-form.pdf" download>다운로드 ⤓</a>
+                </li>
+            </ul>
+        </section>
+
+        <!-- 4. Quiz -->
+        <section id="tab-quiz" class="tab-content">
+            <div class="quiz-header">
+                <h2 class="section-title" style="margin:0; border:none;">품질관리 Quiz (25문항)</h2>
+                <button class="btn-refresh" onclick="generateQuiz()">🔄 문제 새로고침 (랜덤)</button>
+            </div>
+            <div id="quiz-container"></div>
+        </section>
+
+        <!-- 5. 비디오 오버뷰 (상대 경로 video.mp4 연결) -->
+        <section id="tab-overview" class="tab-content">
+            <h2 class="section-title">비디오 오버뷰</h2>
+            <div class="video-hero-card">
+                <div class="video-wrapper">
+                    <!-- 상대 경로로 영상 지정 + playsinline 추가 -->
+                    <video controls muted playsinline preload="metadata">
+                        <source src="video.mp4" type="video/mp4">
+                        브라우저가 동영상 재생을 지원하지 않습니다.
+                    </video>
+                </div>
+                <div class="video-info">
+                    <h3>세균성 식중독 및 장염 PCR 진단키트 위험관리 표준절차서</h3>
+                    <p>ISO 14971:2019 및 IVD 규제 기준을 준수한 전 수명주기 위험관리 브리핑 영상입니다.</p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>© 2026 주식회사 SBK. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('nav a').forEach(nav => nav.classList.remove('active'));
+
+            document.getElementById('tab-' + tabId).classList.add('active');
+            document.getElementById('nav-' + tabId).classList.add('active');
+        }
+
+        const quizData = [
+            { type: 'mc', q: '[문서관리] 품질문서의 보존기간은 특별한 규정이 없는 한 최소 몇 년인가?', a: ['3년', '5년', '10년', '영구'], correct: 1 },
+            { type: 'sa', q: '[문서관리] 개정된 문서를 배포할 때 구문서의 혼용을 방지하기 위해 수행하는 조치는?', correct: '회수' },
+            { type: 'mc', q: '[문서관리] 품질기록의 수정을 수행할 때 올바른 방법은?', a: ['화이트로 지운다', '원래 내용이 보이도록 수정을 긋고 서명/일자를 남긴다', '새 종이에 다시 쓴다', '덮어쓴다'], correct: 1 },
+            { type: 'mc', q: '[문서관리] 문서의 최신 승인본 상태를 확인할 수 있는 문서는?', a: ['문서대장', 'CAPA대장', 'FMEA', 'NCR'], correct: 0 },
+            { type: 'sa', q: '[문서관리] 표준 작업 절차서를 뜻하는 영문 약어(3자)는?', correct: 'SOP' },
+
+            { type: 'mc', q: '[위험관리] RPN(위험지수)을 산출하는 공식은?', a: ['S + P', 'S x P', 'S / P', 'S - P'], correct: 1 },
+            { type: 'mc', q: '[위험관리] 의료기기 위험관리에 관한 국제 표준 규격은?', a: ['ISO 13485', 'ISO 14971', 'ISO 9001', 'ISO 17025'], correct: 1 },
+            { type: 'sa', q: '[위험관리] 위험 통제 우선순위 중 1순위에 해당하는 통제 수단은?', correct: '본질적 안전설계' },
+            { type: 'mc', q: '[위험관리] PCR 시약의 보관 및 유통 시 위험관리가 핵심적으로 적용되는 체계는?', a: ['콜드체인(Cold Chain)', '스마트 팩토리', '블록체인', '외주 관리'], correct: 0 },
+            { type: 'sa', q: '[위험관리] AFAP 원칙에서 AFAP의 약자 풀이 첫 글자(As Far As ...)의 세 번째 단어는?', correct: 'Possible' },
+
+            { type: 'mc', q: '[시험검사] 샘플링 검사 적용 시 표준으로 활용되는 KS 규격은?', a: ['KS Q ISO 2859-1', 'KS B 0001', 'KS C 1234', 'KS A 9001'], correct: 0 },
+            { type: 'sa', q: '[시험검사] Real-time PCR 증폭 신호가 기준선을 넘는 주기를 뜻하는 약어는?', correct: 'Ct' },
+            { type: 'mc', q: '[시험검사] NTC(Negative Control) 시험 시 정상적인 결과는?', a: ['증폭 신호 발생', '증폭 신호 없음 (No Ct)', 'Ct 15 이하', 'Ct 30 이상'], correct: 1 },
+            { type: 'mc', q: '[시험검사] 완제품 출하 승인을 위한 최종 권한자는?', a: ['생산담당자', '품질관리책임자', '영업팀장', '구매담당자'], correct: 1 },
+            { type: 'sa', q: '[시험검사] 입고 검사 시 효소 및 원자재의 유효성을 증명하는 공급사 발행 성적서는?', correct: 'CoA' },
+
+            { type: 'mc', q: '[식별추적] 의료기기 고유식별자 시스템의 약어는?', a: ['UDI', 'RFID', 'QR', 'BARCODE'], correct: 0 },
+            { type: 'sa', q: '[식별추적] 한 번의 제조 공정으로 만들어진 동일한 조건의 제품 묶음을 뜻하는 번호는?', correct: 'Lot' },
+            { type: 'mc', q: '[식별추적] 초저온(-20℃) 보관 시 사용되는 식별 라벨의 종류는?', a: ['감열 라벨', 'Cryo 라벨', '종이 라벨', '은무데드롱 라벨'], correct: 1 },
+            { type: 'mc', q: '[식별추적] UDI 바코드 검사 시 허용되는 최저 등급 기준은?', a: ['Grade A', 'Grade B', 'Grade C', 'Grade D'], correct: 1 },
+            { type: 'sa', q: '[식별추적] 연 1회 이상 완제품 1건을 선발하여 원자재부터 출하처까지 이력을 확인하는 검증 활동은?', correct: '모의추적' },
+
+            { type: 'mc', q: '[CAPA] CAPA의 약어 중 C가 의미하는 단어는?', a: ['Corrective', 'Control', 'Check', 'Company'], correct: 0 },
+            { type: 'sa', q: '[CAPA] 근본 원인 분석 시 질문을 반복하여 원인을 도출하는 기법은?', correct: '5-Why' },
+            { type: 'mc', q: '[CAPA] CAPA 조치가 완료된 후 반드시 수행해야 하는 최종 확인 단계는?', a: ['즉시 봉쇄', '효과성 검증', '문서 폐기', '담당자 교체'], correct: 1 },
+            { type: 'mc', q: '[CAPA] 부적합이 재발하거나 중대한 영향이 있을 때 발의하는 서식은?', a: ['CAPA 요구/보고서', '구매발주서', '출하지시서', '회의록'], correct: 0 },
+            { type: 'sa', q: '[CAPA] CAPA 관리 대장에 최초 등록할 때 부여하는 고유 번호는?', correct: 'CAPA 번호' }
+        ];
+
+        function generateQuiz() {
+            const container = document.getElementById('quiz-container');
+            container.innerHTML = '';
+            const shuffled = [...quizData].sort(() => Math.random() - 0.5);
+
+            shuffled.forEach((q, idx) => {
+                const card = document.createElement('div');
+                card.className = 'quiz-card';
+
+                let optionsHTML = '';
+                if (q.type === 'mc') {
+                    optionsHTML = `<div class="quiz-options">
+                        ${q.a.map((opt, oIdx) => `<label class="quiz-option"><input type="radio" name="q${idx}" value="${oIdx}"> ${opt}</label>`).join('')}
+                    </div>`;
+                } else {
+                    optionsHTML = `<input type="text" class="quiz-input" placeholder="정답 입력">`;
+                }
+
+                card.innerHTML = `<h4>Q${idx + 1}. ${q.q}</h4>${optionsHTML}`;
+                container.appendChild(card);
+            });
+        }
+
+        generateQuiz();
+    </script>
+</body>
+</html>
